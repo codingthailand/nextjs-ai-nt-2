@@ -1,0 +1,56 @@
+# Dependencies
+node_modules
+npm-debug.log
+
+# Testing
+coverage
+.nyc_output
+
+# Next.js
+.next
+out
+
+# Production
+build
+dist
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+*.log
+*.log.*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
