@@ -3,6 +3,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## วิธีการใช้งาน Source Code
 
 ```bash
+เปลี่ยนชื่อจาก .env.example เป็น .env
+
 npm install
 
 npx prisma generate
