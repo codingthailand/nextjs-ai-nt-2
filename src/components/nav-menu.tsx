@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ComponentProps } from "react";
 import {
   NavigationMenu,
@@ -10,34 +11,35 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => (
-  <NavigationMenu {...props}>
-    <NavigationMenuList className="data-[orientation=vertical]:-ms-2 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:justify-start">
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/">หน้าหลัก</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/course">หลักสูตร</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/about">เกี่ยวกับเรา</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/product">สินค้า</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/contact">ติดต่อเรา</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-    </NavigationMenuList>
-  </NavigationMenu>
-);
+const links = [
+  { href: "/", label: "หน้าหลัก" },
+  { href: "/course", label: "หลักสูตร" },
+  { href: "/about", label: "เกี่ยวกับเรา" },
+  { href: "/product", label: "สินค้า" },
+  { href: "/contact", label: "ติดต่อเรา" },
+];
+
+export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => {
+  const pathname = usePathname();
+
+  return (
+    <NavigationMenu {...props}>
+      <NavigationMenuList className="data-[orientation=vertical]:-ms-2 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:justify-start">
+        {links.map((link) => {
+          const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+          return (
+            <NavigationMenuItem key={link.href}>
+              <NavigationMenuLink
+                asChild
+                active={active}
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href={link.href}>{link.label}</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          );
+        })}
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+};

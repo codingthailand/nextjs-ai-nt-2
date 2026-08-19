@@ -1,0 +1,1 @@
+docker run -d --name mariadb --restart always -p 3306:3306 -e MARIADB_ROOT_PASSWORD=Admin_1jj395qu -e MARIADB_DATABASE=ecommerce -e MARIADB_USER=app_user -e MARIADB_PASSWORD=Admin_1jj395qu -e TZ=Asia/Bangkok -v mariadb_data_nt2:/var/lib/mysql mariadb:11.8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

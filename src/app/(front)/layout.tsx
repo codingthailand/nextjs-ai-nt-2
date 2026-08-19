@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Prompt, Roboto, Lora } from "next/font/google";
+import { Prompt, Nunito, Poppins, Space_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 import "../globals.css";
@@ -9,20 +9,36 @@ import "../globals.css";
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
 export const instant = false;
 
-const loraHeading = Lora({subsets:['latin'],variable:'--font-heading'});
-
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'});
-
-export const promptFont = Prompt({
-  weight: ['400', '500', '700'],
-  subsets: ['thai'],
-  display: 'swap'
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
+  display: "swap",
 });
 
+const poppins = Poppins({
+  weight: ["500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
+
+export const promptFont = Prompt({
+  weight: ["400", "500", "700"],
+  subsets: ["thai"],
+  display: "swap",
+  variable: "--font-prompt",
+});
 
 export const metadata: Metadata = {
-  title: "ระบบ E-Commerce COSCI",
-  description: "เรียนรู้การเขียน Nex.tjs",
+  title: "ShopVibe — ระบบ E-Commerce",
+  description: "เรียนรู้การเขียน Next.js",
 };
 
 export default function RootLayout({
@@ -33,7 +49,13 @@ export default function RootLayout({
   return (
     <html
       lang="th"
-      className={cn(promptFont.className, "font-sans", roboto.variable, loraHeading.variable)}
+      className={cn(
+        "font-sans",
+        nunito.variable,
+        poppins.variable,
+        spaceMono.variable,
+        promptFont.variable
+      )}
     >
       <body>
         <Suspense fallback={<div className="h-16 border-b bg-background" />}>

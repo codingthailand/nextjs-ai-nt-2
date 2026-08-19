@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CartButton from "@/app/(front)/components/CartButton";
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
 
 type Props = {
   products: any[]
@@ -8,43 +9,74 @@ type Props = {
 
 const FeaturesProduct = ({ products }: Props) => {
   return (
-    <div className="mx-auto flex max-w-7xl flex-col px-6 py-20">
-      <h2 className="text-pretty text-center font-medium text-4xl tracking-[-0.04em] sm:text-[2.75rem]">
-        สินค้าทั้งหมด
-      </h2>
-
-      <div className="mt-16 grid grid-cols-1 gap-6 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <div className="rounded-xl border bg-card px-6 py-7" key={product.id}>
-
-            <div className="relative mb-5 aspect-4/5 w-full overflow-hidden rounded-xl sm:mb-6">
-              <Image
-                alt={product.name}
-                className="size-full bg-muted object-cover"
-                width={0}
-                height={0}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                src={`/product-image/${product.picture}`}
-                loading="eager"
-              />
-            </div>
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/5 text-primary dark:bg-primary/15">
-              ID: {product.id}
-            </div>
-            <h3 className="mt-5 font-medium text-lg tracking-[-0.005em]">
-              Name: {product.name}
-            </h3>
-            <p className="mt-2 text-base text-foreground/70">
-              Price: {product.price.toString()}
-            </p>
-            <div className="mt-2">
-                <CartButton product={product} />
-            </div>
-          </div>
-        ))}
+    <section className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <span className="font-heading text-sm font-bold uppercase tracking-[0.1em] text-primary">
+            New Arrivals
+          </span>
+          <h2 className="mt-2 font-heading text-4xl font-bold tracking-[0.01em]">
+            สินค้าทั้งหมด
+          </h2>
+        </div>
+        <span className="font-mono text-sm text-muted-foreground">
+          {products.length} items
+        </span>
       </div>
-    </div>
+
+      <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+        {products.map((product) => {
+          const price = Number(product.price);
+          const salePrice = Math.round(price * 0.8);
+
+          return (
+            <Card
+              key={product.id}
+              size="elevated"
+              className="overflow-hidden p-0 transition-shadow hover:shadow-[0_14px_32px_rgba(217,70,239,0.12),0_6px_12px_rgba(0,0,0,0.06)]"
+            >
+              <div className="relative aspect-4/5 w-full overflow-hidden rounded-t-2xl">
+                <Image
+                  alt={product.name}
+                  className="size-full bg-muted object-cover transition-transform duration-300 group-hover/card:scale-105"
+                  width={0}
+                  height={0}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  src={`/product-image/${product.picture}`}
+                  loading="eager"
+                />
+                <span className="absolute left-3 top-3 rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground shadow-sm">
+                  SALE
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-4 p-5">
+                <h3 className="font-heading text-lg font-semibold tracking-[0.005em]">
+                  {product.name}
+                </h3>
+
+                <div className="flex items-baseline gap-2">
+                  <span className="font-heading text-2xl font-bold text-secondary">
+                    ฿{salePrice.toLocaleString()}
+                  </span>
+                  <span className="text-sm text-muted-foreground line-through">
+                    ฿{price.toLocaleString()}
+                  </span>
+                </div>
+
+                <div className="mt-auto flex items-center justify-between gap-3">
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="size-2 rounded-full bg-success" />
+                    In stock · ships today
+                  </span>
+                  <CartButton product={{ ...product, price: salePrice }} />
+                </div>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 

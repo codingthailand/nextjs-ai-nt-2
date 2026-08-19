@@ -3,7 +3,6 @@ import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav-menu";
 import { NavigationSheet } from "@/components/navigation-sheet";
 import Link from "next/link";
-import { Badge } from "./ui/badge";
 import { ShoppingBasket } from "lucide-react";
 import CountCartItem from "@/app/(front)/components/CountCartItem";
 import { auth } from "@/lib/auth";
@@ -23,10 +22,9 @@ const Navbar = async () => {
         {/* Desktop Menu */}
         <NavMenu className="hidden md:block" />
 
-        <Link href="/cart">
-          <Badge className="p-2 text-md">
-            <ShoppingBasket /> <CountCartItem /> ชิ้น
-          </Badge>
+        <Link href="/cart" className="group flex items-center gap-2 rounded-full border-2 border-primary px-4 py-1.5 text-sm font-bold text-primary transition-colors hover:bg-[#FDF4FF]">
+          <ShoppingBasket className="size-4" />
+          <CountCartItem /> ชิ้น
         </Link>
 
         <div className="flex items-center gap-3">

@@ -1,43 +1,59 @@
-import { ArrowUpRight, CirclePlay } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-6">
+    <section className="relative overflow-hidden bg-background">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 sm:py-32 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-40">
+        <div className="max-w-xl">
+          <Badge variant="tertiary" className="gap-1.5">
+            <Zap className="size-3" /> New Season · Shop Now
+          </Badge>
 
-      <div className="relative z-10 max-w-3xl text-center">
-        <Badge
-          asChild
-          className="rounded-full border-border py-1"
-          variant="secondary"
-        >
-          <Link href="#">
-            Just released v1.0.0 <ArrowUpRight className="ml-1 size-4" />
-          </Link>
-        </Badge>
+          <h1 className="mt-6 font-heading text-5xl font-extrabold leading-[1.1] tracking-[0.02em] sm:text-6xl">
+            Gear up with the{" "}
+            <span className="text-primary">hottest tech</span> at ShopVibe
+          </h1>
 
-        <h1 className="mx-auto mt-6 max-w-xl font-medium text-4xl tracking-[-0.04em] sm:text-[2.75rem] md:text-6xl/[1.2]">
-          Ship better UI without&nbsp;the&nbsp;hassle
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-muted-foreground text-xl md:text-2xl/normal">
-          Instead of starting from scratch every time, use thoughtfully designed
-          blocks that give you a solid foundation for any UI.
-        </p>
-        <div className="mt-12 flex items-center justify-center gap-4">
-          <Button className="rounded-full" size="lg">
-            Get Started <ArrowUpRight className="h-5! w-5!" />
-          </Button>
-          <Button
-            className="rounded-full shadow-none"
-            size="lg"
-            variant="outline"
-          >
-            <CirclePlay className="h-5! w-5!" /> Watch Demo
-          </Button>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
+            IT gear and lifestyle essentials with the energy you need. Fresh
+            drops, everyday deals, and checkout that just feels fast.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Button asChild size="lg">
+              <Link href="/product">
+                Shop Now <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/course">Browse Courses</Link>
+            </Button>
+          </div>
+
+          <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-secondary" /> Free shipping
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-tertiary" /> 30-day returns
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-primary" /> Secure checkout
+            </span>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="aspect-square w-full rounded-[24px] bg-gradient-to-br from-[#FDF4FF] via-secondary/20 to-[#FEF9C3] shadow-[0_25px_50px_rgba(0,0,0,0.15),0_12px_24px_rgba(0,0,0,0.08)]" />
+          <div className="absolute -bottom-4 -left-4 rounded-2xl border border-[#E5E5E5] bg-white px-5 py-4 shadow-[0_10px_25px_rgba(0,0,0,0.1),0_6px_10px_rgba(0,0,0,0.06)]">
+            <p className="font-heading text-2xl font-extrabold text-primary">Hot Deal</p>
+            <p className="text-sm text-muted-foreground">Up to 50% off today</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
