@@ -11,9 +11,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## Stack
 
 - **Next.js 16.3.1** (React 19) — not the version in your training data
-- **Prisma** with MariaDB adapter (`@prisma/adapter-mariadb`) — client output at `generated/prisma`, NOT `node_modules/.prisma`
+- **Prisma 7** (`prisma-client` generator) with MariaDB adapter (`@prisma/adapter-mariadb`) — client output at `generated/prisma` (gitignored), NOT `node_modules/.prisma`
 - **better-auth** — email/password auth via `src/lib/auth.ts`, API route at `src/app/api/auth/[...all]/route.ts`
-- **shadcn/ui** — style: `radix-rhea`, icons: `lucide`. New components via `npx shadcn add <name>`
+- **shadcn/ui** — style: `radix-rhea`, new components via `npx shadcn add <name>`. NOTE: shadcn UI primitives import icons from `@remixicon/react`, not lucide
 - **Zustand** — client cart state in `src/lib/cart-store.ts`, persisted to localStorage under key `skill-cart`
 - **Zod v4** + react-hook-form for validation
 - **Tailwind CSS v4** — config-free, uses `@import "tailwindcss"` in `src/app/globals.css`
@@ -23,9 +23,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ```bash
 npm install
 npx prisma generate   # outputs to generated/prisma — MUST run after install or schema changes
-cp .env.example .env  # configure DATABASE_URL before prisma generate
 npm run dev
 ```
+
+- Env vars (in `.env`, no `.env.example` exists despite README): `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`. `prisma.config.ts` reads `DATABASE_URL` via dotenv.
 
 ## Commands
 
@@ -39,15 +40,19 @@ npm run dev
 
 ## Architecture
 
-- **Route groups**: `(auth)` for login/signup, `(front)` for public-facing pages
-- **Prisma client import**: `from "../../generated/prisma/client"` (not the usual `@prisma/client`)
-- **Prisma singleton**: `src/lib/prisma.ts` — uses MariaDB adapter, global instance pattern for dev hot-reload
-- **Auth**: better-auth with Prisma adapter (`mysql` provider), configured in `src/lib/auth.ts`
+- **Route groups**: `(auth)` for login/signup, `(front)` for public-facing pages (incl. product/course/cart/about/contact)
+- **Prisma client import**: relative path `../../generated/prisma/client` (no `@/` alias into generated code)
+- **Prisma singleton**: `src/lib/prisma.ts` — MariaDB adapter, global instance pattern for dev hot-reload
+- **Auth**: better-auth with Prisma adapter (`mysql` provider), configured in `src/lib/auth.ts`; client side in `src/lib/auth-client.ts`
 - **Path alias**: `@/*` maps to `./src/*`
+- **Data**: `(front)/course` and `about` pages fetch from external API `https://api.codingthailand.com` (server-side `fetch`)
+- **Docker**: multi-stage build in `Dockerfile` using Next standalone output; runs `npx prisma generate` before `next build`
 
 ## Gotchas
 
+- **No Prisma migrations** — `prisma/migrations/` does not exist. DB setup is manual: run `docs/create_table_ecommerce.sql` + `docs/insert_data_ecom_example_50_products.sql` against the MariaDB container from `docs/install_mariadb_with_docker.txt`. The better-auth tables (`User`/`Session`/`Account`/`Verification`) exist only in `prisma/schema.prisma` — use `prisma db push` or create them manually.
 - `prisma generate` output goes to `generated/prisma`, not the default. The Prisma client import path in `src/lib/prisma.ts` reflects this.
 - The MariaDB adapter is used even though the Prisma schema provider is `mysql` — the adapter handles the actual connection.
+- `next.config.ts` sets `cacheComponents: true` and an `images.remotePatterns` allowlist (`www.fffuel.co`, `api.codingthailand.com`) — new remote image hosts must be added there.
 - `AGENTS.md` auto-generation: The `<!-- BEGIN:nextjs-agent-rules -->` block is re-created by `next dev`. Keep it; only the content you add below matters.
-- No `.env.example` found — check `.env` for required vars (`DATABASE_URL` at minimum).
+- `CLAUDE.md` just references this file (`@AGENTS.md`).
