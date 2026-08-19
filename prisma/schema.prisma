@@ -9,10 +9,29 @@ datasource db {
 }
 
 model product {
-  id      Int     @id @default(autoincrement())
-  name    String  @db.VarChar(100)
-  price   Decimal @db.Decimal(10, 0)
-  picture String  @db.VarChar(150)
+  id          Int             @id @default(autoincrement())
+  name        String          @db.VarChar(255)
+  description String?         @db.Text
+  price       Float
+  categoryId  Int?            @map("category_id")
+  category    categories?     @relation(fields: [categoryId], references: [id])
+  images      product_images[]
+
+  @@map("products")
+}
+
+model categories {
+  id       Int       @id @default(autoincrement())
+  name     String?   @db.VarChar(255)
+  products product[]
+}
+
+model product_images {
+  id        Int      @id @default(autoincrement())
+  productId Int      @map("product_id")
+  imageName String   @db.Text @map("image_name")
+  createdAt DateTime @default(now()) @map("created_at")
+  product   product  @relation(fields: [productId], references: [id])
 }
 
 model User {

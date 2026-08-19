@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CartButton from "@/app/(front)/components/CartButton";
-import Image from "next/image";
 import { Card } from "@/components/ui/card";
+import ProductImage from "@/components/product-image";
 
 type Props = {
   products: any[]
@@ -36,14 +36,9 @@ const FeaturesProduct = ({ products }: Props) => {
               className="overflow-hidden p-0 transition-shadow hover:shadow-[0_14px_32px_rgba(217,70,239,0.12),0_6px_12px_rgba(0,0,0,0.06)]"
             >
               <div className="relative aspect-4/5 w-full overflow-hidden rounded-t-2xl">
-                <Image
-                  alt={product.name}
-                  className="size-full bg-muted object-cover transition-transform duration-300 group-hover/card:scale-105"
-                  width={0}
-                  height={0}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  src={`/product-image/${product.picture}`}
-                  loading="eager"
+                <ProductImage
+                  name={product.name}
+                  src={product.picture ? `/product-image/${product.picture}` : null}
                 />
                 <span className="absolute left-3 top-3 rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground shadow-sm">
                   SALE
