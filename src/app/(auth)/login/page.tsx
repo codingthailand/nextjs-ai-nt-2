@@ -27,7 +27,7 @@ const loginSchema = z.object({
   email: z
     .string()
     .min(1, "กรุณากรอกอีเมล")
-    .email("รูปแบบอีเมลไม่ถูกต้อง"),
+    .pipe(z.email("รูปแบบอีเมลไม่ถูกต้อง")),
   password: z
     .string()
     .min(1, "กรุณากรอกรหัสผ่าน")

@@ -26,7 +26,7 @@ npx prisma generate   # outputs to generated/prisma — MUST run after install o
 npm run dev
 ```
 
-- Env vars (in `.env`, no `.env.example` exists despite README): `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`. `prisma.config.ts` reads `DATABASE_URL` via dotenv.
+- Env vars: `.env` is gitignored — copy `.env.example` to `.env` and fill in. Used vars: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, plus Resend keys (`RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`) for the contact form. `prisma.config.ts` reads `DATABASE_URL` via dotenv.
 
 ## Commands
 

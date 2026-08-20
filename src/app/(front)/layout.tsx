@@ -5,10 +5,6 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 import "../globals.css";
 
-// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
-
 const nunito = Nunito({
   subsets: ["latin"],
   variable: "--font-nunito",
@@ -29,7 +25,7 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-export const promptFont = Prompt({
+const promptFont = Prompt({
   weight: ["400", "500", "700"],
   subsets: ["thai"],
   display: "swap",
