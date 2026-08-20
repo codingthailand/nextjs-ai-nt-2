@@ -7,12 +7,6 @@
       "skillPath": "skills/git-commit-guide/SKILL.md",
       "computedHash": "47fc751ed01b04b8f6a3151e728907359680235681b94641283f5370cccb0c4f"
     },
-    "review-architecture-project": {
-      "source": "codingthailand/skill-ai-nt-2",
-      "sourceType": "github",
-      "skillPath": "skills/review-architecture-project/SKILL.md",
-      "computedHash": "eaea5de4c203e18464f693f0fb18d57ae3fd8417884248bb582a3180361174b8"
-    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
