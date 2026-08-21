@@ -1,0 +1,58 @@
+name: opencode-ai-review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+jobs:
+  opencode-review:
+    name: Review Pull Request with opencode
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Run opencode review
+        uses: anomalyco/opencode/github@latest
+        env:
+          OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: ollama-cloud/gemma4:31b
+          use_github_token: true
+          prompt: |
+            Review this pull request.
+
+            Focus only on issues that are likely to be real problems.
+
+            Check for:
+            - Code quality issues
+            - Potential bugs
+            - Security risks
+            - Missing validation
+            - Incorrect error handling
+            - Risky database operations
+            - Breaking changes
+            - Unnecessary complexity
+
+            Rules:
+            - ตอบเป็นภาษาไทย
+            - เขียนให้กระชับ
+            - รายงานเฉพาะปัญหาที่มั่นใจจริง
+            - ถ้าไม่พบปัญหาสำคัญ ให้ตอบว่า "ไม่พบปัญหาสำคัญที่ต้องแก้ไข"
+            - อย่าแนะนำเรื่อง style เล็ก ๆ น้อย ๆ ถ้าไม่ได้กระทบคุณภาพของโค้ด
+            - อย่าเดาปัญหาที่ไม่มีหลักฐานจาก diff
