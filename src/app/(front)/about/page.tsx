@@ -35,7 +35,7 @@ export default function AboutPage() {
         <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-[#FDF4FF] text-primary">
           <Sparkles className="size-6" />
         </div>
-        <h2 className="font-heading text-2xl font-bold">Powered by COSCI</h2>
+        <h2 className="font-heading text-2xl font-bold">Powered by NT</h2>
         <p className="mx-auto max-w-md text-muted-foreground">
           ระบบสถานะ API ปัจจุบันของแพลตฟอร์ม
         </p>
