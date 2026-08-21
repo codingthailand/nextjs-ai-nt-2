@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { connection } from "next/server";
+import prisma from "@/lib/prisma";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
   Table,
@@ -64,7 +66,7 @@ async function CustomerTable({
 }) {
   await connection();
 
-  const params = searchParams;
+  const params = await searchParams;
   const pageParam = typeof params.page === "string" ? params.page : "1";
   const page = Math.max(1, Number.parseInt(pageParam, 10) || 1);
 
