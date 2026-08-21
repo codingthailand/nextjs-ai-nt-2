@@ -25,8 +25,13 @@ COPY . .
 RUN npx prisma generate
 
 # Build Next.js application
+# DATABASE_URL is required at import-time by src/lib/prisma.ts (PrismaMariaDb adapter).
+# Pass it via --build-arg-file=.env (or --build-arg DATABASE_URL=...). Only the builder
+# stage needs it; the runner stage gets its env at runtime via --env-file.
+ARG DATABASE_URL
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV DATABASE_URL=$DATABASE_URL
 
 RUN npm run build
 
