@@ -20,6 +20,15 @@ model product {
   @@map("products")
 }
 
+model customer {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(255)
+  address String @db.VarChar(500)
+  phone   String @db.VarChar(20)
+
+  @@map("customers")
+}
+
 model categories {
   id       Int       @id @default(autoincrement())
   name     String?   @db.VarChar(255)

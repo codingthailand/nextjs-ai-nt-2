@@ -16,6 +16,7 @@ const links = [
   { href: "/course", label: "หลักสูตร" },
   { href: "/about", label: "เกี่ยวกับเรา" },
   { href: "/product", label: "สินค้า" },
+  { href: "/customer", label: "ลูกค้า" },
   { href: "/contact", label: "ติดต่อเรา" },
 ];
 
