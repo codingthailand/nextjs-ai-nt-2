@@ -120,7 +120,7 @@ export default function ContactPage() {
           Get in Touch
         </span>
         <h1 className="mt-2 font-heading text-4xl font-bold tracking-[0.01em] sm:text-5xl">
-          ติดต่อเรา
+          Contact US
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
           สอบถามข้อมูลเพิ่มเติมหรือติดต่อทีมงานของเรา
